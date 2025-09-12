@@ -92,11 +92,14 @@ public class MainController {
             }
         } catch (Exception e) {
             AlertUtil.showError("Database error: " + e.getMessage());
-        }
-        finally {
-            try { if (resultSet != null) resultSet.close(); } catch (Exception e) {}
-            try { if (preparedStatement != null) preparedStatement.close(); } catch (Exception e) {}
-            try { if (connect != null) connect.close(); } catch (Exception e) {}
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connect != null) connect.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         loginForm.setVisible(true);
         registerForm.setVisible(false);
