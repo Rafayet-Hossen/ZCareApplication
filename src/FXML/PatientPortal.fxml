@@ -28,7 +28,7 @@
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="patientUsername" layoutX="58.0" layoutY="225.0" prefHeight="35.0" prefWidth="250.0" promptText="Patient Username">
+                  <TextField fx:id="patientLoginUsername" layoutX="58.0" layoutY="225.0" prefHeight="35.0" prefWidth="250.0" promptText="Email">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
@@ -38,12 +38,12 @@
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="patientPassword" layoutX="58.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
+                  <PasswordField fx:id="patientLoginPassword" layoutX="58.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
                      <font>
                         <Font name="Comic Mono Bold" size="12.0" />
                      </font>
                   </PasswordField>
-                  <CheckBox fx:id="doctorLoginCheckBox" layoutX="58.0" layoutY="319.0" mnemonicParsing="false" onAction="#showPasswordLogin" text="Show Password">
+                  <CheckBox fx:id="patientLoginCheckbox" layoutX="58.0" layoutY="319.0" mnemonicParsing="false" onAction="#showPasswordLogin" text="Show Password">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
@@ -75,7 +75,7 @@
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="registerShowPassword" layoutX="58.0" layoutY="292.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
+                  <TextField fx:id="patientRegisterShowPassword" layoutX="58.0" layoutY="292.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
