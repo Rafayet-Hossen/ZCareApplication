@@ -1,170 +1,189 @@
 package Controllers;
 
 import Database.Database;
+import Utility.AlertUtil;
 import Utility.PageUtil;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Hyperlink;
+
 
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
 public class DoctorsController extends PageUtil implements Initializable {
+
+    @FXML
+    private TextField doctorEmail;
+
+    @FXML
+    private TextField doctorFullName;
+
     @FXML
     private TextField doctorID;
+
     @FXML
     private Button doctorLoginBtn;
+
     @FXML
     private CheckBox doctorLoginCheckBox;
+
     @FXML
-    private PasswordField doctorPassword;
+    private PasswordField doctorLoginPassword;
+
+    @FXML
+    private TextField doctorRegisterID;
+
+    @FXML
+    private PasswordField doctorRegisterPassword;
+
     @FXML
     private AnchorPane loginForm;
+
     @FXML
     private TextField loginShowPassword;
-    @FXML
-    private ComboBox<String> selectUserType;
+
     @FXML
     private AnchorPane mainForm;
+
     @FXML
     private Button registerBtn;
+
     @FXML
     private CheckBox registerCheckbox;
-    @FXML
-    private TextField registerEmail;
+
     @FXML
     private AnchorPane registerForm;
+
     @FXML
     private Hyperlink registerHere;
+
     @FXML
     private Hyperlink registerLogin;
-    @FXML
-    private PasswordField registerPassword;
+
     @FXML
     private TextField registerShowPassword;
+
     @FXML
-    private TextField registerUsername;
+    private ComboBox<String> selectUserType;
+
+
 
     private Connection connect;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    @FXML
-    private void handleRegister() {
-        if (registerEmail.getText().isEmpty() || registerUsername.getText().isEmpty() || registerPassword.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Please fill all the fields");
+    public void registerAccount() {
+        if (doctorEmail.getText().isEmpty() || doctorFullName.getText().isEmpty() || doctorRegisterPassword.getText().isEmpty()) {
+            AlertUtil.showError("Please fill all the fields");
             return;
         }
-        if (registerPassword.getText().length() < 8) {
-            showAlert(Alert.AlertType.ERROR, "Password must be 8 characters");
+        if (doctorRegisterPassword.getText().length() < 8) {
+            AlertUtil.showError("Password must be at least 8 characters");
             return;
         }
 
         String checkEmail = "SELECT * FROM doctors WHERE email = ?";
-        String insertUser = "INSERT INTO doctors (username, password, email, date) VALUES (?, ?, ?, ?)";
+        String insertUser = "INSERT INTO doctors (full_name, email,doctor_id,password,date) VALUES (?, ?, ?, ?,?)";
 
         try {
             connect = Database.connectDB();
-            assert connect != null;
-
-            preparedStatement = connect.prepareStatement(checkEmail);
-            preparedStatement.setString(1, registerEmail.getText());
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                showAlert(Alert.AlertType.ERROR, "Email already exists!");
+            if (connect == null) {
+                AlertUtil.showError("Database connection failed!");
                 return;
             }
-            resultSet.close();
-            preparedStatement.close();
 
+            // Check if email already exists
+            preparedStatement = connect.prepareStatement(checkEmail);
+            preparedStatement.setString(1, doctorEmail.getText());
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                AlertUtil.showError("Email already exists!");
+                return;
+            }
+
+            // Insert new doctor account
             preparedStatement = connect.prepareStatement(insertUser);
-            preparedStatement.setString(1, registerUsername.getText());
-            preparedStatement.setString(2, registerPassword.getText());
-            preparedStatement.setString(3, registerEmail.getText());
-            preparedStatement.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            preparedStatement.setString(1, doctorFullName.getText());
+            preparedStatement.setString(2, doctorEmail.getText());
+            preparedStatement.setString(3, doctorRegisterID.getText());
+            preparedStatement.setString(4, doctorRegisterPassword.getText());
+            preparedStatement.setDate(5, new java.sql.Date(System.currentTimeMillis()));
             int rows = preparedStatement.executeUpdate();
+
             if (rows > 0) {
-                showAlert(Alert.AlertType.INFORMATION, "Account created successfully!");
+                AlertUtil.showSuccess("Account created successfully!");
+                switchForms(); // Go back to login form
             } else {
-                showAlert(Alert.AlertType.ERROR, "Failed to create account.");
+                AlertUtil.showError("Failed to create account.");
             }
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database error: " + e.getMessage());
+            AlertUtil.showError("Database error: " + e.getMessage());
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
-                if (connect != null) connect.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeConnections();
         }
-        loginForm.setVisible(true);
-        registerForm.setVisible(false);
-        registerUsername.clear();
-        registerPassword.clear();
+
+        // Clear fields after registration
+        doctorFullName.clear();
+        doctorRegisterPassword.clear();
         registerShowPassword.clear();
-        registerEmail.clear();
+        doctorEmail.clear();
     }
 
-    @FXML
-    private void loginAccount() {
-        String email = doctorID.getText();
-        String password = doctorPassword.getText();
-
-        if (email.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Please enter both email and password.");
+    public void loginAccount() {
+        if (doctorID.getText().isEmpty() || doctorLoginPassword.getText().isEmpty()) {
+            AlertUtil.showError("Please enter Doctor ID and Password");
             return;
         }
 
-        String query = "SELECT * FROM doctors WHERE email = ? AND password = ?";
+        String query = "SELECT * FROM doctors WHERE doctor_id = ? AND password = ?";
 
         try {
             connect = Database.connectDB();
-            assert connect != null;
+            if (connect == null) {
+                AlertUtil.showError("Database connection failed!");
+                return;
+            }
 
             preparedStatement = connect.prepareStatement(query);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, doctorID.getText());
+            preparedStatement.setString(2, doctorLoginPassword.getText());
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                showAlert(Alert.AlertType.INFORMATION, "Login successful!");
+                AlertUtil.showSuccess("Login successful!");
                 mainForm.setVisible(true);
                 loginForm.setVisible(false);
-                doctorID.clear();
-                doctorPassword.clear();
-                loginShowPassword.clear();
             } else {
-                showAlert(Alert.AlertType.ERROR, "Invalid email or password.");
+                AlertUtil.showError("Invalid Doctor ID or Password.");
             }
         } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database error: " + e.getMessage());
+            AlertUtil.showError("Database error: " + e.getMessage());
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
-                if (connect != null) connect.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeConnections();
         }
+
+        doctorID.clear();
+        doctorLoginPassword.clear();
+        loginShowPassword.clear();
     }
+
+    private void closeConnections() {
+    }
+
 
     @FXML
     private void toggleLoginShowPassword() {
         if (doctorLoginCheckBox.isSelected()) {
-            loginShowPassword.setText(doctorPassword.getText());
+            loginShowPassword.setText(doctorLoginPassword.getText());
             loginShowPassword.setVisible(true);
-            doctorPassword.setVisible(false);
+            doctorLoginPassword.setVisible(false);
         } else {
-            doctorPassword.setText(loginShowPassword.getText());
-            doctorPassword.setVisible(true);
+            doctorLoginPassword.setText(loginShowPassword.getText());
+            doctorLoginPassword.setVisible(true);
             loginShowPassword.setVisible(false);
         }
     }
@@ -172,12 +191,12 @@ public class DoctorsController extends PageUtil implements Initializable {
     @FXML
     private void toggleRegisterShowPassword() {
         if (registerCheckbox.isSelected()) {
-            registerShowPassword.setText(registerPassword.getText());
+            registerShowPassword.setText(doctorRegisterPassword.getText());
             registerShowPassword.setVisible(true);
-            registerPassword.setVisible(false);
+            doctorRegisterPassword.setVisible(false);
         } else {
-            registerPassword.setText(registerShowPassword.getText());
-            registerPassword.setVisible(true);
+            doctorRegisterPassword.setText(registerShowPassword.getText());
+            doctorRegisterPassword.setVisible(true);
             registerShowPassword.setVisible(false);
         }
     }

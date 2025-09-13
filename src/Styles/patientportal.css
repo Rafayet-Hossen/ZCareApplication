@@ -1,0 +1,29 @@
+.root {
+    -fx-background-color: #FFF8E1; /* Soft cream background */
+}
+
+.label {
+    -fx-text-fill: #E65100; /* Warm deep orange for headings */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #FFB74D; /* Soft orange buttons */
+    -fx-text-fill: #212121;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #FB8C00; /* Darker orange on hover */
+    -fx-text-fill: white;
+}
+
+.text-field, .password-field, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #FFB74D;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-prompt-text-fill: #8D6E63;
+}

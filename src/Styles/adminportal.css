@@ -1,0 +1,28 @@
+.root {
+    -fx-background-color: #F5F5F5; /* Light grey background */
+}
+
+.label {
+    -fx-text-fill: #212121; /* Dark grey text */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #424242; /* Dark grey buttons */
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1B1B1B; /* Almost black on hover */
+}
+
+.text-field, .password-field, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #BDBDBD; /* Subtle grey borders */
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-prompt-text-fill: #9E9E9E;
+}

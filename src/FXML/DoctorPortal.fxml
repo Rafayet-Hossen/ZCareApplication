@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" stylesheets="/Styles/main.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DoctorsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="350.0" stylesheets="/Styles/doctorpanel.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DoctorsController">
    <children>
       <AnchorPane fx:id="mainForm" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -38,7 +38,7 @@
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="doctorLoginPassword" layoutX="58.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
+                  <PasswordField fx:id="doctorLoginPassword" layoutX="57.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
                      <font>
                         <Font name="Comic Mono Bold" size="12.0" />
                      </font>
@@ -70,7 +70,7 @@
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="doctorUsername" layoutX="64.0" layoutY="246.0" prefHeight="35.0" prefWidth="250.0" promptText="Doctor ID">
+                  <TextField fx:id="doctorRegisterID" layoutX="64.0" layoutY="246.0" prefHeight="35.0" prefWidth="250.0" promptText="Doctor ID">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
@@ -85,7 +85,7 @@
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="registerBtn" layoutX="65.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="35.0" prefWidth="250.0" text="Sign Up">
+                  <Button fx:id="registerBtn" layoutX="65.0" layoutY="363.0" mnemonicParsing="false" onAction="#registerAccount" prefHeight="35.0" prefWidth="250.0" text="Sign Up">
                      <font>
                         <Font name="Consolas" size="17.0" />
                      </font>

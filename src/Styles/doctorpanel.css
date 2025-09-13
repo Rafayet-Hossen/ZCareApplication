@@ -1,0 +1,28 @@
+.root {
+    -fx-background-color: #E3F2FD; /* Light blue background */
+}
+
+.label {
+    -fx-text-fill: #0D47A1; /* Deep blue text for labels */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #1E88E5; /* Medium blue buttons */
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1565C0; /* Darker blue on hover */
+}
+
+.text-field, .password-field, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #1E88E5;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-prompt-text-fill: #90A4AE;
+}
