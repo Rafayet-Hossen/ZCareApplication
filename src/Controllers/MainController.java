@@ -1,16 +1,26 @@
 package Controllers;
 
 import Database.Database;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.*;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     private Button loginBtn;
@@ -25,7 +35,10 @@ public class MainController {
     private TextField loginPassword;
 
     @FXML
-    private ComboBox<?> loginUser;
+    private TextField loginShowPassword;
+
+    @FXML
+    private ComboBox<String> selectUserType;
 
     @FXML
     private TextField loginUsername;
@@ -128,6 +141,57 @@ public class MainController {
         registerEmail.clear();
     }
 
+    public void loginAccount() {
+        if (loginUsername.getText().isEmpty() || loginPassword.getText().isEmpty()) {
+            AlertUtil.showError("Please fill all the fields");
+            return;
+        }
+
+        String query = "SELECT * FROM admin WHERE username = ? AND password = ?";
+
+        try {
+            connect = Database.connectDB();
+            assert connect != null;
+
+            preparedStatement = connect.prepareStatement(query);
+            preparedStatement.setString(1, loginUsername.getText());
+            preparedStatement.setString(2, loginPassword.getText());
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                AlertUtil.showSuccess("Login successful!");
+                mainForm.setVisible(true);
+                loginForm.setVisible(false);
+            } else {
+                AlertUtil.showError("Invalid username or password.");
+            }
+        } catch (Exception e) {
+            AlertUtil.showError("Database error: " + e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connect != null) connect.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        loginUsername.clear();
+        loginPassword.clear();
+    }
+
+    public void showPasswordLogin(){
+        if(loginCheckbox.isSelected()){
+            loginShowPassword.setText(loginPassword.getText());
+            loginShowPassword.setVisible(true);
+            loginPassword.setVisible(false);
+        }else{
+            loginPassword.setText(loginShowPassword.getText());
+            loginShowPassword.setVisible(false);
+            loginPassword.setVisible(true);
+        }
+    }
+
     public void showPasswordRegister(){
         if(registerCheckbox.isSelected()){
             registerShowPassword.setText(registerPassword.getText());
@@ -140,6 +204,7 @@ public class MainController {
         }
     }
 
+
     public void switchForms(ActionEvent event) {
         if (event.getSource() == registerHere) {
             loginForm.setVisible(false);
@@ -149,5 +214,16 @@ public class MainController {
             loginForm.setVisible(true);
         }
     }
-
+    public void userList(){
+        List<String> listUser = new ArrayList<>();
+        for(String data: Users.user){
+            listUser.add(data);
+        }
+        ObservableList<String> observableList = FXCollections.observableList(listUser);
+        selectUserType.setItems(observableList);
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        userList();
+    }
 }

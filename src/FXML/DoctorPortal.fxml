@@ -16,20 +16,19 @@
    <children>
       <AnchorPane fx:id="mainForm" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane fx:id="loginForm" layoutX="-1.0" prefHeight="550.0" prefWidth="357.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="loginForm" layoutX="3.0" prefHeight="550.0" prefWidth="357.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <FontAwesomeIconView fill="#3498db" glyphName="USER" layoutX="158.0" layoutY="146.0" size="50" wrappingWidth="34.0" />
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="153.0" prefHeight="17.0" prefWidth="350.0" text="Login Account" textFill="#6daad3">
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="153.0" prefHeight="17.0" prefWidth="350.0" text="Login Account" textFill="#0e6aa8">
                      <font>
                         <Font name="Consolas" size="22.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="179.0" prefHeight="17.0" prefWidth="350.0" text="Admin Panel" textFill="#6daad3">
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="179.0" prefHeight="17.0" prefWidth="350.0" text="Doctor Portal" textFill="#0e6aa8">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="loginUsername" layoutX="58.0" layoutY="225.0" prefHeight="35.0" prefWidth="250.0" promptText="Username">
+                  <TextField fx:id="doctorID" layoutX="58.0" layoutY="225.0" prefHeight="35.0" prefWidth="250.0" promptText="Doctor ID">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
@@ -39,70 +38,72 @@
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="loginPassword" layoutX="58.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
+                  <PasswordField fx:id="doctorLoginPassword" layoutX="58.0" layoutY="270.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
                      <font>
                         <Font name="Comic Mono Bold" size="12.0" />
                      </font>
                   </PasswordField>
-                  <CheckBox fx:id="loginCheckbox" layoutX="58.0" layoutY="319.0" mnemonicParsing="false" onAction="#showPasswordLogin" text="Show Password">
+                  <CheckBox fx:id="doctorLoginCheckBox" layoutX="58.0" layoutY="319.0" mnemonicParsing="false" onAction="#showPasswordLogin" text="Show Password">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="loginBtn" layoutX="58.0" layoutY="346.0" mnemonicParsing="false" onAction="#loginAccount" prefHeight="35.0" prefWidth="250.0" text="Login">
+                  <Button fx:id="doctorLoginBtn" layoutX="58.0" layoutY="346.0" mnemonicParsing="false" onAction="#loginAccount" prefHeight="35.0" prefWidth="250.0" text="Login">
                      <font>
                         <Font name="Consolas" size="17.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="selectUserType" layoutX="107.0" layoutY="423.0" prefHeight="35.0" prefWidth="150.0" promptText="Select User" />
+                  <ComboBox fx:id="loginUser" layoutX="107.0" layoutY="423.0" prefHeight="35.0" prefWidth="150.0" promptText="Select User" />
                   <Hyperlink fx:id="registerHere" layoutX="131.0" layoutY="472.0" onAction="#switchForms" text="Create an account" />
+                  <FontAwesomeIconView fill="#0901ee" glyphName="USER_MD" layoutX="158.0" layoutY="131.0" size="60" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="registerForm" layoutX="5.0" layoutY="5.0" prefHeight="550.0" prefWidth="357.0" visible="false">
+            <AnchorPane fx:id="registerForm" layoutX="5.0" layoutY="5.0" prefHeight="550.0" prefWidth="357.0">
                <children>
-                  <Label alignment="CENTER" layoutX="8.0" layoutY="102.0" prefHeight="17.0" prefWidth="350.0" text="Register Account" textFill="#6daad3">
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="91.0" prefHeight="17.0" prefWidth="350.0" text="Register Account" textFill="#6daad3">
                      <font>
                         <Font name="Consolas" size="22.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="7.0" layoutY="135.0" prefHeight="17.0" prefWidth="350.0" text="Admin Panel" textFill="#6daad3">
+                  <Label alignment="CENTER" layoutX="7.0" layoutY="117.0" prefHeight="17.0" prefWidth="350.0" text="Doctor Portal" textFill="#6daad3">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="registerUsername" layoutX="58.0" layoutY="225.0" prefHeight="35.0" prefWidth="250.0" promptText="Username">
+                  <TextField fx:id="doctorUsername" layoutX="64.0" layoutY="246.0" prefHeight="35.0" prefWidth="250.0" promptText="Doctor ID">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="registerShowPassword" layoutX="57.0" layoutY="275.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
+                  <TextField fx:id="registerShowPassword" layoutX="65.0" layoutY="292.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </TextField>
-                  <CheckBox fx:id="registerCheckbox" layoutX="58.0" layoutY="319.0" mnemonicParsing="false" onAction="#showPasswordRegister" text="Show Password">
+                  <CheckBox fx:id="registerCheckbox" layoutX="65.0" layoutY="336.0" mnemonicParsing="false" onAction="#showPasswordRegister" text="Show Password">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font>
                   </CheckBox>
-                  <Button fx:id="registerBtn" layoutX="58.0" layoutY="346.0" mnemonicParsing="false" onAction="#registerAccount" prefHeight="35.0" prefWidth="250.0" text="Sign Up">
+                  <Button fx:id="registerBtn" layoutX="65.0" layoutY="363.0" mnemonicParsing="false" onAction="#registerAccount" prefHeight="35.0" prefWidth="250.0" text="Sign Up">
                      <font>
                         <Font name="Consolas" size="17.0" />
                      </font>
                   </Button>
                   <Hyperlink fx:id="registerLogin" layoutX="146.0" layoutY="484.0" onAction="#switchForms" text="Login Here" />
                   <FontAwesomeIconView fill="#6071e1" glyphName="USER_PLUS" layoutX="148.0" layoutY="76.0" size="60" />
-                  <TextField fx:id="registerEmail" layoutX="58.0" layoutY="175.0" prefHeight="35.0" prefWidth="250.0" promptText="Email Address">
+                  <TextField fx:id="doctorEmail" layoutX="65.0" layoutY="197.0" prefHeight="35.0" prefWidth="250.0" promptText="Email Address">
                      <font>
-                        <Font name="Comic Sans MS" size="12.0" />
+                        <Font name="Ebrima" size="12.0" />
                      </font>
                   </TextField>
                   <FontAwesomeIconView fill="#6071e1" layoutX="148.0" layoutY="463.0" size="60" />
-                  <PasswordField fx:id="registerPassword" layoutX="58.0" layoutY="275.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
+                  <PasswordField fx:id="doctorRegisterPassword" layoutX="65.0" layoutY="292.0" prefHeight="35.0" prefWidth="250.0" promptText="Password">
                      <font>
-                        <Font name="Comic Mono Bold" size="12.0" />
+                        <Font name="Tahoma Bold" size="12.0" />
                      </font>
                   </PasswordField>
+                  <TextField fx:id="doctorFullName" layoutX="64.0" layoutY="152.0" prefHeight="35.0" prefWidth="250.0" promptText="Full Name" />
                </children>
             </AnchorPane>
          </children>
