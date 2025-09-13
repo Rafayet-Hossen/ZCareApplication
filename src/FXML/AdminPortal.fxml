@@ -54,7 +54,7 @@
                         <Font name="Consolas" size="17.0" />
                      </font>
                   </Button>
-                  <ComboBox fx:id="selectUserType" layoutX="107.0" layoutY="423.0" prefHeight="35.0" prefWidth="150.0" promptText="Select User" />
+                  <ComboBox fx:id="selectUserType" layoutX="107.0" layoutY="423.0" onAction="#switchPage" prefHeight="35.0" prefWidth="150.0" promptText="Select User" />
                   <Hyperlink fx:id="registerHere" layoutX="131.0" layoutY="472.0" onAction="#switchForms" text="Create an account" />
                </children>
             </AnchorPane>

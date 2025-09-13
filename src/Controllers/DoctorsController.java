@@ -1,14 +1,20 @@
 package Controllers;
 
 import Database.Database;
+import Utility.PageUtil;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Hyperlink;
-import java.sql.*;
 
-public class DoctorsController {
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
+
+public class DoctorsController extends PageUtil implements Initializable {
     @FXML
     private TextField doctorID;
     @FXML
@@ -22,7 +28,7 @@ public class DoctorsController {
     @FXML
     private TextField loginShowPassword;
     @FXML
-    private ComboBox<?> loginUser;
+    private ComboBox<String> selectUserType;
     @FXML
     private AnchorPane mainForm;
     @FXML
@@ -63,10 +69,9 @@ public class DoctorsController {
         String insertUser = "INSERT INTO doctors (username, password, email, date) VALUES (?, ?, ?, ?)";
 
         try {
-            connect = Database.connectDB(); // Replace with your DB connection
+            connect = Database.connectDB();
             assert connect != null;
 
-            // Check if email exists
             preparedStatement = connect.prepareStatement(checkEmail);
             preparedStatement.setString(1, registerEmail.getText());
             resultSet = preparedStatement.executeQuery();
@@ -77,7 +82,6 @@ public class DoctorsController {
             resultSet.close();
             preparedStatement.close();
 
-            // Insert new user
             preparedStatement = connect.prepareStatement(insertUser);
             preparedStatement.setString(1, registerUsername.getText());
             preparedStatement.setString(2, registerPassword.getText());
@@ -182,5 +186,33 @@ public class DoctorsController {
         Alert alert = new Alert(type);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        PageUtil.populateUserTypeComboBox(selectUserType);
+        selectUserType.getSelectionModel().select("Doctor"); // Set default to Doctor
+        selectUserType.setOnAction(event -> {
+            String selected = selectUserType.getSelectionModel().getSelectedItem();
+            if (!"Doctor".equals(selected)) {
+                PageUtil.switchPage(selectUserType);
+            }
+        });
+    }
+
+    public void switchPage() {
+        PageUtil.switchPage(selectUserType);
+    }
+
+    public void switchForms(ActionEvent event) {
+    }
+
+    public void showPasswordLogin(ActionEvent event) {
+    }
+
+    public void showPasswordRegister(ActionEvent event) {
+    }
+
+    public void registerAccount(ActionEvent actionEvent) {
     }
 }
