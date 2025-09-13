@@ -61,34 +61,53 @@ public class MainController {
     private ResultSet resultSet;
 
     public void registerAccount() {
-        if (registerEmail.getText().isEmpty() || registerUsername.getText().isEmpty() || registerShowPassword.getText().isEmpty()) {
+        if (registerEmail.getText().isEmpty() || registerUsername.getText().isEmpty() || registerPassword.getText().isEmpty()) {
             AlertUtil.showError("Please fill all the fields");
             return;
         }
+        if (registerPassword.getText().length() < 8) {
+            AlertUtil.showError("Password must be 8 characters");
+            return;
+        }
+
         String checkUsername = "SELECT * FROM admin WHERE username = ?";
-        String insertUser = "INSERT INTO admin (username, password, email,date) VALUES (?, ?, ?,?)";
+        String checkEmail = "SELECT * FROM admin WHERE email = ?";
+        String insertUser = "INSERT INTO admin (username, password, email, date) VALUES (?, ?, ?, ?)";
 
         try {
             connect = Database.connectDB();
             assert connect != null;
+
             preparedStatement = connect.prepareStatement(checkUsername);
             preparedStatement.setString(1, registerUsername.getText());
             resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {
                 AlertUtil.showError("Username already exists!");
+                return;
+            }
+            resultSet.close();
+            preparedStatement.close();
+
+            preparedStatement = connect.prepareStatement(checkEmail);
+            preparedStatement.setString(1, registerEmail.getText());
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                AlertUtil.showError("Email already exists!");
+                return;
+            }
+            resultSet.close();
+            preparedStatement.close();
+
+            preparedStatement = connect.prepareStatement(insertUser);
+            preparedStatement.setString(1, registerUsername.getText());
+            preparedStatement.setString(2, registerPassword.getText());
+            preparedStatement.setString(3, registerEmail.getText());
+            preparedStatement.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            int rows = preparedStatement.executeUpdate();
+            if (rows > 0) {
+                AlertUtil.showSuccess("Account created successfully!");
             } else {
-                preparedStatement = connect.prepareStatement(insertUser);
-                preparedStatement.setString(1, registerUsername.getText());
-                preparedStatement.setString(2, registerShowPassword.getText());
-                preparedStatement.setString(3, registerEmail.getText());
-                preparedStatement.setDate(4, new java.sql.Date(System.currentTimeMillis()));
-                int rows = preparedStatement.executeUpdate();
-                if (rows > 0) {
-                    AlertUtil.showSuccess("Account created successfully!");
-                } else {
-                    AlertUtil.showError("Failed to create account.");
-                }
+                AlertUtil.showError("Failed to create account.");
             }
         } catch (Exception e) {
             AlertUtil.showError("Database error: " + e.getMessage());
