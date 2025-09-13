@@ -31,7 +31,9 @@ public class PatientController extends PageUtil implements Initializable {
 
     public void loginAccount(ActionEvent actionEvent) { }
 
-    public void switchForms(ActionEvent actionEvent) { }
+    public void switchForms(ActionEvent actionEvent) {
+
+    }
 
     public void showPasswordRegister(ActionEvent actionEvent) { }
 

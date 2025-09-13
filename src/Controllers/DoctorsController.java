@@ -203,16 +203,13 @@ public class DoctorsController extends PageUtil implements Initializable {
     public void switchPage() {
         PageUtil.switchPage(selectUserType);
     }
-
-    public void switchForms(ActionEvent event) {
-    }
-
-    public void showPasswordLogin(ActionEvent event) {
-    }
-
-    public void showPasswordRegister(ActionEvent event) {
-    }
-
-    public void registerAccount(ActionEvent actionEvent) {
+    public void switchForms(){
+        if (loginForm.isVisible()) {
+            loginForm.setVisible(false);
+            registerForm.setVisible(true);
+        } else {
+            registerForm.setVisible(false);
+            loginForm.setVisible(true);
+        }
     }
 }
