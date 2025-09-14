@@ -87,7 +87,7 @@ public class DoctorsController extends PageUtil implements Initializable {
         }
 
         String checkEmail = "SELECT * FROM doctors WHERE email = ?";
-        String insertUser = "INSERT INTO doctors (full_name, email,doctor_id,password,date) VALUES (?, ?, ?, ?,?)";
+        String insertUser = "INSERT INTO doctors (full_name, email,doctor_id,password,created_at) VALUES (?, ?, ?, ?,?)";
 
         try {
             connect = Database.connectDB();
@@ -95,8 +95,6 @@ public class DoctorsController extends PageUtil implements Initializable {
                 AlertUtil.showError("Database connection failed!");
                 return;
             }
-
-            // Check if email already exists
             preparedStatement = connect.prepareStatement(checkEmail);
             preparedStatement.setString(1, doctorEmail.getText());
             resultSet = preparedStatement.executeQuery();
@@ -104,8 +102,6 @@ public class DoctorsController extends PageUtil implements Initializable {
                 AlertUtil.showError("Email already exists!");
                 return;
             }
-
-            // Insert new doctor account
             preparedStatement = connect.prepareStatement(insertUser);
             preparedStatement.setString(1, doctorFullName.getText());
             preparedStatement.setString(2, doctorEmail.getText());
@@ -116,7 +112,7 @@ public class DoctorsController extends PageUtil implements Initializable {
 
             if (rows > 0) {
                 AlertUtil.showSuccess("Account created successfully!");
-                switchForms(); // Go back to login form
+                switchForms();
             } else {
                 AlertUtil.showError("Failed to create account.");
             }
@@ -125,8 +121,6 @@ public class DoctorsController extends PageUtil implements Initializable {
         } finally {
             closeConnections();
         }
-
-        // Clear fields after registration
         doctorFullName.clear();
         doctorRegisterPassword.clear();
         registerShowPassword.clear();

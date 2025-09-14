@@ -97,7 +97,7 @@ public class MainController extends PageUtil implements Initializable {
 
         String checkUsername = "SELECT * FROM admin WHERE username = ?";
         String checkEmail = "SELECT * FROM admin WHERE email = ?";
-        String insertUser = "INSERT INTO admin (username, password, email, date) VALUES (?, ?, ?, ?)";
+        String insertUser = "INSERT INTO admin (email, username, password, created_at) VALUES (?, ?, ?, ?)";
 
         try {
             connect = Database.connectDB();
@@ -120,9 +120,9 @@ public class MainController extends PageUtil implements Initializable {
                 return;
             }
             preparedStatement = connect.prepareStatement(insertUser);
-            preparedStatement.setString(1, registerUsername.getText());
-            preparedStatement.setString(2, registerPassword.getText());
-            preparedStatement.setString(3, registerEmail.getText());
+            preparedStatement.setString(2, registerUsername.getText());
+            preparedStatement.setString(3, registerPassword.getText());
+            preparedStatement.setString(1, registerEmail.getText());
             preparedStatement.setDate(4, new java.sql.Date(System.currentTimeMillis()));
             int rows = preparedStatement.executeUpdate();
 
