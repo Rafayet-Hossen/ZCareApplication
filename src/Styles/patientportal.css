@@ -1,22 +1,22 @@
 .root {
-    -fx-background-color: #FFF8E1; /* Soft cream background */
+    -fx-background-color: #FFF8E1;
 }
 
 .label {
-    -fx-text-fill: #E65100; /* Warm deep orange for headings */
+    -fx-text-fill: #E65100;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
 .button {
-    -fx-background-color: #FFB74D; /* Soft orange buttons */
+    -fx-background-color: #FFB74D;
     -fx-text-fill: #212121;
     -fx-background-radius: 8;
     -fx-cursor: hand;
 }
 
 .button:hover {
-    -fx-background-color: #FB8C00; /* Darker orange on hover */
+    -fx-background-color: #FB8C00;
     -fx-text-fill: white;
 }
 
