@@ -15,7 +15,7 @@ public class PageUtil {
 
     public static void switchPage(ComboBox<String> comboBox) {
         String selectedUser = comboBox.getSelectionModel().getSelectedItem();
-        Users.selectedUser = selectedUser;  // ✅ store it globally
+        Users.selectedUser = selectedUser;
 
         String fxmlFile;
         String title;

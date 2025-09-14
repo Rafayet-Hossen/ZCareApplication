@@ -76,7 +76,7 @@ public class PatientController extends PageUtil implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         PageUtil.populateUserTypeComboBox(selectUserType);
-        selectUserType.getSelectionModel().select("Patient"); // Set default to Patient
+        selectUserType.getSelectionModel().select("Patient");
         selectUserType.setOnAction(event -> {
             String selected = selectUserType.getSelectionModel().getSelectedItem();
             if (!"Patient".equals(selected)) {
